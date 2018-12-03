@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.his.mapper.OpeUserEntityMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.his.jpa.pojo.OpeUserEntity">
+    <id column="USER_NO" jdbcType="CHAR" property="userNo" />
+    <result column="USER_NAME" jdbcType="CHAR" property="userName" />
+    <result column="USER_PWD" jdbcType="CHAR" property="userPwd" />
+    <result column="USER_ROLE" jdbcType="CHAR" property="userRole" />
+    <result column="USER_ROLE_NO" jdbcType="INTEGER" property="userRoleNo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    USER_NO, USER_NAME, USER_PWD, USER_ROLE, USER_ROLE_NO
+  </sql>
+  <select id="selectByExample" parameterType="com.neuedu.his.jpa.pojo.OpeUserEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ope_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ope_user
+    where USER_NO = #{userNo,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ope_user
+    where USER_NO = #{userNo,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neuedu.his.jpa.pojo.OpeUserEntityExample">
+    delete from ope_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.neuedu.his.jpa.pojo.OpeUserEntity">
+    insert into ope_user (USER_NO, USER_NAME, USER_PWD, 
+      USER_ROLE, USER_ROLE_NO)
+    values (#{userNo,jdbcType=CHAR}, #{userName,jdbcType=CHAR}, #{userPwd,jdbcType=CHAR}, 
+      #{userRole,jdbcType=CHAR}, #{userRoleNo,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.his.jpa.pojo.OpeUserEntity">
+    insert into ope_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userNo != null">
+        USER_NO,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="userPwd != null">
+        USER_PWD,
+      </if>
+      <if test="userRole != null">
+        USER_ROLE,
+      </if>
+      <if test="userRoleNo != null">
+        USER_ROLE_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userNo != null">
+        #{userNo,jdbcType=CHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=CHAR},
+      </if>
+      <if test="userPwd != null">
+        #{userPwd,jdbcType=CHAR},
+      </if>
+      <if test="userRole != null">
+        #{userRole,jdbcType=CHAR},
+      </if>
+      <if test="userRoleNo != null">
+        #{userRoleNo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neuedu.his.jpa.pojo.OpeUserEntityExample" resultType="java.lang.Integer">
+    select count(*) from ope_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ope_user
+    <set>
+      <if test="record.userNo != null">
+        USER_NO = #{record.userNo,jdbcType=CHAR},
+      </if>
+      <if test="record.userName != null">
+        USER_NAME = #{record.userName,jdbcType=CHAR},
+      </if>
+      <if test="record.userPwd != null">
+        USER_PWD = #{record.userPwd,jdbcType=CHAR},
+      </if>
+      <if test="record.userRole != null">
+        USER_ROLE = #{record.userRole,jdbcType=CHAR},
+      </if>
+      <if test="record.userRoleNo != null">
+        USER_ROLE_NO = #{record.userRoleNo,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ope_user
+    set USER_NO = #{record.userNo,jdbcType=CHAR},
+      USER_NAME = #{record.userName,jdbcType=CHAR},
+      USER_PWD = #{record.userPwd,jdbcType=CHAR},
+      USER_ROLE = #{record.userRole,jdbcType=CHAR},
+      USER_ROLE_NO = #{record.userRoleNo,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neuedu.his.jpa.pojo.OpeUserEntity">
+    update ope_user
+    <set>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=CHAR},
+      </if>
+      <if test="userPwd != null">
+        USER_PWD = #{userPwd,jdbcType=CHAR},
+      </if>
+      <if test="userRole != null">
+        USER_ROLE = #{userRole,jdbcType=CHAR},
+      </if>
+      <if test="userRoleNo != null">
+        USER_ROLE_NO = #{userRoleNo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where USER_NO = #{userNo,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neuedu.his.jpa.pojo.OpeUserEntity">
+    update ope_user
+    set USER_NAME = #{userName,jdbcType=CHAR},
+      USER_PWD = #{userPwd,jdbcType=CHAR},
+      USER_ROLE = #{userRole,jdbcType=CHAR},
+      USER_ROLE_NO = #{userRoleNo,jdbcType=INTEGER}
+    where USER_NO = #{userNo,jdbcType=CHAR}
+  </update>
+</mapper>

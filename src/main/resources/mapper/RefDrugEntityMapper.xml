@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.his.mapper.RefDrugEntityMapper">
+  <resultMap id="BaseResultMap" type="com.neuedu.his.jpa.pojo.RefDrugEntity">
+    <id column="REFUND_NO" jdbcType="CHAR" property="refundNo" />
+    <result column="RECIPE_NO" jdbcType="CHAR" property="recipeNo" />
+    <result column="REF_STATUS" jdbcType="INTEGER" property="refStatus" />
+    <result column="RECIPE_COST" jdbcType="DOUBLE" property="recipeCost" />
+    <result column="REFUND_COST" jdbcType="DOUBLE" property="refundCost" />
+    <result column="REF_FLAG" jdbcType="CHAR" property="refFlag" />
+    <result column="REF_DATE" jdbcType="TIMESTAMP" property="refDate" />
+    <result column="REF_APPLY_DATE" jdbcType="TIMESTAMP" property="refApplyDate" />
+    <result column="REF_REMARKS" jdbcType="CHAR" property="refRemarks" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    REFUND_NO, RECIPE_NO, REF_STATUS, RECIPE_COST, REFUND_COST, REF_FLAG, REF_DATE, REF_APPLY_DATE, 
+    REF_REMARKS
+  </sql>
+  <select id="selectByExample" parameterType="com.neuedu.his.jpa.pojo.RefDrugEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ref_drug
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ref_drug
+    where REFUND_NO = #{refundNo,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ref_drug
+    where REFUND_NO = #{refundNo,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neuedu.his.jpa.pojo.RefDrugEntityExample">
+    delete from ref_drug
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.neuedu.his.jpa.pojo.RefDrugEntity">
+    insert into ref_drug (REFUND_NO, RECIPE_NO, REF_STATUS, 
+      RECIPE_COST, REFUND_COST, REF_FLAG, 
+      REF_DATE, REF_APPLY_DATE, REF_REMARKS
+      )
+    values (#{refundNo,jdbcType=CHAR}, #{recipeNo,jdbcType=CHAR}, #{refStatus,jdbcType=INTEGER}, 
+      #{recipeCost,jdbcType=DOUBLE}, #{refundCost,jdbcType=DOUBLE}, #{refFlag,jdbcType=CHAR}, 
+      #{refDate,jdbcType=TIMESTAMP}, #{refApplyDate,jdbcType=TIMESTAMP}, #{refRemarks,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.his.jpa.pojo.RefDrugEntity">
+    insert into ref_drug
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="refundNo != null">
+        REFUND_NO,
+      </if>
+      <if test="recipeNo != null">
+        RECIPE_NO,
+      </if>
+      <if test="refStatus != null">
+        REF_STATUS,
+      </if>
+      <if test="recipeCost != null">
+        RECIPE_COST,
+      </if>
+      <if test="refundCost != null">
+        REFUND_COST,
+      </if>
+      <if test="refFlag != null">
+        REF_FLAG,
+      </if>
+      <if test="refDate != null">
+        REF_DATE,
+      </if>
+      <if test="refApplyDate != null">
+        REF_APPLY_DATE,
+      </if>
+      <if test="refRemarks != null">
+        REF_REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="refundNo != null">
+        #{refundNo,jdbcType=CHAR},
+      </if>
+      <if test="recipeNo != null">
+        #{recipeNo,jdbcType=CHAR},
+      </if>
+      <if test="refStatus != null">
+        #{refStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recipeCost != null">
+        #{recipeCost,jdbcType=DOUBLE},
+      </if>
+      <if test="refundCost != null">
+        #{refundCost,jdbcType=DOUBLE},
+      </if>
+      <if test="refFlag != null">
+        #{refFlag,jdbcType=CHAR},
+      </if>
+      <if test="refDate != null">
+        #{refDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refApplyDate != null">
+        #{refApplyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refRemarks != null">
+        #{refRemarks,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neuedu.his.jpa.pojo.RefDrugEntityExample" resultType="java.lang.Integer">
+    select count(*) from ref_drug
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ref_drug
+    <set>
+      <if test="record.refundNo != null">
+        REFUND_NO = #{record.refundNo,jdbcType=CHAR},
+      </if>
+      <if test="record.recipeNo != null">
+        RECIPE_NO = #{record.recipeNo,jdbcType=CHAR},
+      </if>
+      <if test="record.refStatus != null">
+        REF_STATUS = #{record.refStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.recipeCost != null">
+        RECIPE_COST = #{record.recipeCost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.refundCost != null">
+        REFUND_COST = #{record.refundCost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.refFlag != null">
+        REF_FLAG = #{record.refFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.refDate != null">
+        REF_DATE = #{record.refDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.refApplyDate != null">
+        REF_APPLY_DATE = #{record.refApplyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.refRemarks != null">
+        REF_REMARKS = #{record.refRemarks,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ref_drug
+    set REFUND_NO = #{record.refundNo,jdbcType=CHAR},
+      RECIPE_NO = #{record.recipeNo,jdbcType=CHAR},
+      REF_STATUS = #{record.refStatus,jdbcType=INTEGER},
+      RECIPE_COST = #{record.recipeCost,jdbcType=DOUBLE},
+      REFUND_COST = #{record.refundCost,jdbcType=DOUBLE},
+      REF_FLAG = #{record.refFlag,jdbcType=CHAR},
+      REF_DATE = #{record.refDate,jdbcType=TIMESTAMP},
+      REF_APPLY_DATE = #{record.refApplyDate,jdbcType=TIMESTAMP},
+      REF_REMARKS = #{record.refRemarks,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neuedu.his.jpa.pojo.RefDrugEntity">
+    update ref_drug
+    <set>
+      <if test="recipeNo != null">
+        RECIPE_NO = #{recipeNo,jdbcType=CHAR},
+      </if>
+      <if test="refStatus != null">
+        REF_STATUS = #{refStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recipeCost != null">
+        RECIPE_COST = #{recipeCost,jdbcType=DOUBLE},
+      </if>
+      <if test="refundCost != null">
+        REFUND_COST = #{refundCost,jdbcType=DOUBLE},
+      </if>
+      <if test="refFlag != null">
+        REF_FLAG = #{refFlag,jdbcType=CHAR},
+      </if>
+      <if test="refDate != null">
+        REF_DATE = #{refDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refApplyDate != null">
+        REF_APPLY_DATE = #{refApplyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refRemarks != null">
+        REF_REMARKS = #{refRemarks,jdbcType=CHAR},
+      </if>
+    </set>
+    where REFUND_NO = #{refundNo,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neuedu.his.jpa.pojo.RefDrugEntity">
+    update ref_drug
+    set RECIPE_NO = #{recipeNo,jdbcType=CHAR},
+      REF_STATUS = #{refStatus,jdbcType=INTEGER},
+      RECIPE_COST = #{recipeCost,jdbcType=DOUBLE},
+      REFUND_COST = #{refundCost,jdbcType=DOUBLE},
+      REF_FLAG = #{refFlag,jdbcType=CHAR},
+      REF_DATE = #{refDate,jdbcType=TIMESTAMP},
+      REF_APPLY_DATE = #{refApplyDate,jdbcType=TIMESTAMP},
+      REF_REMARKS = #{refRemarks,jdbcType=CHAR}
+    where REFUND_NO = #{refundNo,jdbcType=CHAR}
+  </update>
+</mapper>

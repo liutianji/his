@@ -1,8 +1,9 @@
 package com.neuedu.his.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TestUser {
+public class TestUser implements Serializable{
 
     private String uid;
     private String uname;

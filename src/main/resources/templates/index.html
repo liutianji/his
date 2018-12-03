@@ -10,5 +10,20 @@
     <p th:text="${user.uname}"></p>
     <h1 th:text="${user.ubirth}" style="color: red;"></h1>
     <div style="color: aqua">ltj11</div>
+
+   <!-- private String uid;
+    private String uname;
+    private String upwd;
+    private Date ubirth;
+    private String uimg;
+    private Integer ustate;-->
+
+    <form action="testJPA1" method="post">
+        <input type="text" name="uid"><br>
+        <input type="text" name="uname"><br>
+        <input type="date" name="ubirth"><br>
+        <input type="password" name="upwd"><br>
+        <input type="submit" value="注册">
+    </form>
 </body>
 </html>

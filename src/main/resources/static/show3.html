@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>综合查询页面</title>
+    <!--改变tomcat图标-->
+    <link rel="shortcut icon"
+          href="images/icon.gif" type="image/x-icon" />
+    <!--改变tomcat图标-->
+    <link rel="stylesheet" type="text/css" href="layui/css/layui.css"/>
+    <script src="layui/layui.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css">
+        table{border-collapse: collapse; }
+        th, td{border: 1px solid #4d4d4d;padding: 5px; }
+    </style>
+    <script type="text/javascript" language="javascript">
+        var idTmr;
+        function  getExplorer() {
+            var explorer = window.navigator.userAgent ;
+            //ie
+            if (explorer.indexOf("MSIE") >= 0) {
+                return 'ie';
+            }
+            //firefox
+            else if (explorer.indexOf("Firefox") >= 0) {
+                return 'Firefox';
+            }
+            //Chrome
+            else if(explorer.indexOf("Chrome") >= 0){
+                return 'Chrome';
+            }
+            //Opera
+            else if(explorer.indexOf("Opera") >= 0){
+                return 'Opera';
+            }
+            //Safari
+            else if(explorer.indexOf("Safari") >= 0){
+                return 'Safari';
+            }
+        }
+        function method1(tableid) {//整个表格拷贝到EXCEL中
+            if(getExplorer()=='ie') {
+                var curTbl = document.getElementById(tableid);
+                var oXL = new ActiveXObject("Excel.Application");
+
+                //创建AX对象excel
+                var oWB = oXL.Workbooks.Add();
+                //获取workbook对象
+                var xlsheet = oWB.Worksheets(1);
+                //激活当前sheet
+                var sel = document.body.createTextRange();
+                sel.moveToElementText(curTbl);
+                //把表格中的内容移到TextRange中
+                sel.select;
+                //全选TextRange中内容
+                sel.execCommand("Copy");
+                //复制TextRange中内容
+                xlsheet.Paste();
+                //粘贴到活动的EXCEL中
+                oXL.Visible = true;
+                //设置excel可见属性
+
+                try {
+                    var fname = oXL.Application.GetSaveAsFilename("Excel.xls", "Excel Spreadsheets (*.xls), *.xls");
+                } catch (e) {
+                    print("Nested catch caught " + e);
+                } finally {
+                    oWB.SaveAs(fname);
+
+                    oWB.Close(savechanges = false);
+                    //xls.visible = false;
+                    oXL.Quit();
+                    oXL = null;
+                    //结束excel进程，退出完成
+                    //window.setInterval("Cleanup();",1);
+                    idTmr = window.setInterval("Cleanup();", 1);
+                }
+            } else {
+                tableToExcel('ta')
+            }
+        }
+        function Cleanup() {
+            window.clearInterval(idTmr);
+            CollectGarbage();
+        }
+
+        /*
+         template ： 定义文档的类型，相当于html页面中顶部的<!DOCTYPE> 声明。（个人理解，不确定）
+         encodeURIComponent:解码
+         unescape() 函数：对通过 escape() 编码的字符串进行解码。
+         window.btoa(window.encodeURIComponent(str)):支持汉字进行解码。
+         \w ：匹配包括下划线的任何单词字符。等价于’[A-Za-z0-9_]’
+         replace()方法：用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
+         {(\w+)}：匹配所有 {1个或更多字符} 形式的字符串；此处匹配输出内容是 “worksheet”
+         正则中的() ：是为了提取匹配的字符串。表达式中有几个()就有几个相应的匹配字符串。
+         讲解(/{(\w+)}/g, function(m, p) { return c[p]; } ：
+         /{(\w+)}/g 匹配出所有形式为“{worksheet}”的字符串；
+         function参数：  m  正则所匹配到的内容，即“worksheet”；
+         p  正则表达式中分组的内容,即“(\w+)”分组中匹配到的内容，为“worksheet”；
+         c ：为object，见下图3
+         c[p] : 为“worksheet”
+
+         */
+        var tableToExcel = (function() {
+            var uri = 'data:application/vnd.ms-excel;base64,',
+                    template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+                    base64 = function(s) {
+                        return window.btoa(unescape(encodeURIComponent(s)))
+                    },
+            // 下面这段函数作用是：将template中的变量替换为页面内容ctx获取到的值
+                    format = function(s, c) {
+                        return s.replace(/{(\w+)}/g,
+                                function(m, p) {
+                                    return c[p];
+                                }
+                        )
+                    };
+            return function(table, name) {
+                if (!table.nodeType) {
+                    table = document.getElementById(table)
+                }
+                // 获取表单的名字和表单查询的内容
+                var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML};
+                // format()函数：通过格式操作使任意类型的数据转换成一个字符串
+                // base64()：进行编码
+                window.location.href = uri + base64(format(template, ctx))
+            }
+        })()
+    </script>
+</head>
+<body>
+<!--点击查询页面-->
+<div  style="position: absolute;left: 32px;border: 0px;width: 1281px;">
+    <ul class="layui-nav" lay-filter="" style="background-color: #FFFFFF;color:black;border: 1px solid gainsboro">
+        <li class="layui-nav-item" style="border-right: 1px solid gainsboro"><a  href="javascript:;"><i class="layui-icon layui-icon-search" style="font-size: 50px; color: #0000cc;"><span style="color: black;font-family: layui-icon ">查询</span></i></a></li>
+        <li class="layui-nav-item" style="border-right: 1px solid gainsboro"><a  href="javascript:;" onclick="method1('ta')"><i class="layui-icon layui-icon-download-circle" style="font-size: 50px; color: #0000cc;"><span style="color: black;font-family: layui-icon ">导出</span></i></a></li>
+        <li class="layui-nav-item" style="border-right: 1px solid gainsboro"><a  href="javascript:;"><i class="layui-icon layui-icon-close" style="font-size: 50px; color: #0000cc;"><span style="color: black;font-family: layui-icon ">退出</span></i></a></li>
+    </ul>
+</div>
+<div  style="position:relative;top:90px;left: 15px">
+    起始时间：
+
+        <select name="begindate" lay-verify="required">
+            <option value="2007-11-06 00:00:00">2007-11-06 00:00:00</option>
+            <option value="2008-11-06 00:00:00">2008-11-06 00:00:00</option>
+        </select>
+   终止时间：
+
+    <select name="finaldate" lay-verify="required">
+        <option value="2007-11-06 00:00:00">2007-11-06 00:00:00</option>
+        <option value="2008-11-06 00:00:00">2008-11-06 00:00:00</option>
+    </select>
+    <select name="yaofang" lay-verify="required">
+        <option value="门诊药房">门诊药房</option>
+        <option value="急诊药房">急诊药房</option>
+    </select>
+    <input type="radio" name="user" value="药房" title="药房" checked>&nbsp;药房
+    <input type="radio" name="user" value="人员" title="人员" >&nbsp;人员
+</div>
+<div style="position: absolute;top: 127px; width: 100%" >
+    <div style="margin: 0 auto">
+        <div style="text-align: center"><span style="font-size: 25px">综合查询量统计</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="show" value="按终端显示" title="按终端显示" checked>&nbsp;按终端显示
+            <input type="radio" name="show" value="按人员显示" title="按人员显示" >&nbsp;按人员显示
+    </div>
+</div>
+    <!--表格-->
+    <div >
+        <table style="align-content: center;" id="ta" lay-filter="test" ></table>
+        <script>
+            layui.use('table', function(){
+                var table = layui.table;
+
+                //第一个实例，模拟数据在data/tableJson.json
+                table.render({
+                    elem: '#ta'
+                    ,url: 'data/tableJson1.json' //数据接口
+                    ,page: true //开启分页
+                    ,cols: [[ //表头
+                        {field: 'name', title: '配药名称', width:80, sort: true, fixed: 'left'}
+                        ,{field: 'count', title: '处方数', width:80}
+                        ,{field: 'yongliang', title: '药品种数', width:80, sort: true}
+                        ,{field: 'times', title: '处方金额', width:80}
+                        ,{field: 'user', title: '剂数', width: 177}
+                    ]]
+                });
+
+            });
+        </script>
+    </div>
+</div>
+<br/>
+</body>
+</html>
