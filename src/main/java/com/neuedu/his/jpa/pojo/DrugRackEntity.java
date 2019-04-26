@@ -2,9 +2,6 @@ package com.neuedu.his.jpa.pojo;
 
 import javax.persistence.*;
 
-/**
- * 药柜实体类
- */
 @Entity
 @Table(name = "drug_rack", schema = "his", catalog = "")
 public class DrugRackEntity {
@@ -13,10 +10,11 @@ public class DrugRackEntity {
     private Integer maxCapacity;
     private Integer usedCapacity;
     private String capacityUnit;
+    private String drugCode;
     private String drugName;
 
     @Id
-    @Column(name = "RACK_NO")
+    @Column(name = "RACK_NO", nullable = false, length = 12)
     public String getRackNo() {
         return rackNo;
     }
@@ -26,7 +24,7 @@ public class DrugRackEntity {
     }
 
     @Basic
-    @Column(name = "RACK_NAME")
+    @Column(name = "RACK_NAME", nullable = true, length = 20)
     public String getRackName() {
         return rackName;
     }
@@ -36,7 +34,7 @@ public class DrugRackEntity {
     }
 
     @Basic
-    @Column(name = "MAX_CAPACITY")
+    @Column(name = "MAX_CAPACITY", nullable = true)
     public Integer getMaxCapacity() {
         return maxCapacity;
     }
@@ -46,7 +44,7 @@ public class DrugRackEntity {
     }
 
     @Basic
-    @Column(name = "USED_CAPACITY")
+    @Column(name = "USED_CAPACITY", nullable = true)
     public Integer getUsedCapacity() {
         return usedCapacity;
     }
@@ -56,7 +54,7 @@ public class DrugRackEntity {
     }
 
     @Basic
-    @Column(name = "CAPACITY_UNIT")
+    @Column(name = "CAPACITY_UNIT", nullable = true, length = 16)
     public String getCapacityUnit() {
         return capacityUnit;
     }
@@ -66,7 +64,17 @@ public class DrugRackEntity {
     }
 
     @Basic
-    @Column(name = "DRUG_NAME")
+    @Column(name = "DRUG_CODE", nullable = true, length = 12)
+    public String getDrugCode() {
+        return drugCode;
+    }
+
+    public void setDrugCode(String drugCode) {
+        this.drugCode = drugCode;
+    }
+
+    @Basic
+    @Column(name = "DRUG_NAME", nullable = true, length = 50)
     public String getDrugName() {
         return drugName;
     }
@@ -87,6 +95,7 @@ public class DrugRackEntity {
         if (maxCapacity != null ? !maxCapacity.equals(that.maxCapacity) : that.maxCapacity != null) return false;
         if (usedCapacity != null ? !usedCapacity.equals(that.usedCapacity) : that.usedCapacity != null) return false;
         if (capacityUnit != null ? !capacityUnit.equals(that.capacityUnit) : that.capacityUnit != null) return false;
+        if (drugCode != null ? !drugCode.equals(that.drugCode) : that.drugCode != null) return false;
         if (drugName != null ? !drugName.equals(that.drugName) : that.drugName != null) return false;
 
         return true;
@@ -99,6 +108,7 @@ public class DrugRackEntity {
         result = 31 * result + (maxCapacity != null ? maxCapacity.hashCode() : 0);
         result = 31 * result + (usedCapacity != null ? usedCapacity.hashCode() : 0);
         result = 31 * result + (capacityUnit != null ? capacityUnit.hashCode() : 0);
+        result = 31 * result + (drugCode != null ? drugCode.hashCode() : 0);
         result = 31 * result + (drugName != null ? drugName.hashCode() : 0);
         return result;
     }

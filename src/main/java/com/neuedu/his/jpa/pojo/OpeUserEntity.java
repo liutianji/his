@@ -2,9 +2,6 @@ package com.neuedu.his.jpa.pojo;
 
 import javax.persistence.*;
 
-/**
- * 人员实体类
- */
 @Entity
 @Table(name = "ope_user", schema = "his", catalog = "")
 public class OpeUserEntity {
@@ -15,7 +12,7 @@ public class OpeUserEntity {
     private Integer userRoleNo;
 
     @Id
-    @Column(name = "USER_NO")
+    @Column(name = "USER_NO", nullable = false, length = 12)
     public String getUserNo() {
         return userNo;
     }
@@ -25,7 +22,7 @@ public class OpeUserEntity {
     }
 
     @Basic
-    @Column(name = "USER_NAME")
+    @Column(name = "USER_NAME", nullable = true, length = 50)
     public String getUserName() {
         return userName;
     }
@@ -35,7 +32,7 @@ public class OpeUserEntity {
     }
 
     @Basic
-    @Column(name = "USER_PWD")
+    @Column(name = "USER_PWD", nullable = true, length = 32)
     public String getUserPwd() {
         return userPwd;
     }
@@ -45,7 +42,7 @@ public class OpeUserEntity {
     }
 
     @Basic
-    @Column(name = "USER_ROLE")
+    @Column(name = "USER_ROLE", nullable = true, length = 40)
     public String getUserRole() {
         return userRole;
     }
@@ -55,7 +52,7 @@ public class OpeUserEntity {
     }
 
     @Basic
-    @Column(name = "USER_ROLE_NO")
+    @Column(name = "USER_ROLE_NO", nullable = true)
     public Integer getUserRoleNo() {
         return userRoleNo;
     }

@@ -1,9 +1,7 @@
 package com.neuedu.his.jpa.pojo;
 
 import javax.persistence.*;
-/**
- * 药品实体类
- */
+
 @Entity
 @Table(name = "drug", schema = "his", catalog = "")
 public class DrugEntity {
@@ -19,7 +17,7 @@ public class DrugEntity {
     private Integer saleQty;
 
     @Id
-    @Column(name = "DRUG_CODE")
+    @Column(name = "DRUG_CODE", nullable = false, length = 12)
     public String getDrugCode() {
         return drugCode;
     }
@@ -29,7 +27,7 @@ public class DrugEntity {
     }
 
     @Basic
-    @Column(name = "TRADE_NAME")
+    @Column(name = "TRADE_NAME", nullable = true, length = 50)
     public String getTradeName() {
         return tradeName;
     }
@@ -39,7 +37,7 @@ public class DrugEntity {
     }
 
     @Basic
-    @Column(name = "BATCH_NO")
+    @Column(name = "BATCH_NO", nullable = true, length = 32)
     public String getBatchNo() {
         return batchNo;
     }
@@ -49,7 +47,7 @@ public class DrugEntity {
     }
 
     @Basic
-    @Column(name = "SPECS")
+    @Column(name = "SPECS", nullable = true, length = 32)
     public String getSpecs() {
         return specs;
     }
@@ -59,7 +57,7 @@ public class DrugEntity {
     }
 
     @Basic
-    @Column(name = "PACK_UNIT")
+    @Column(name = "PACK_UNIT", nullable = true, length = 16)
     public String getPackUnit() {
         return packUnit;
     }
@@ -69,7 +67,7 @@ public class DrugEntity {
     }
 
     @Basic
-    @Column(name = "PACK_QTY")
+    @Column(name = "PACK_QTY", nullable = true)
     public Integer getPackQty() {
         return packQty;
     }
@@ -79,7 +77,7 @@ public class DrugEntity {
     }
 
     @Basic
-    @Column(name = "UNIT_PRICE")
+    @Column(name = "UNIT_PRICE", nullable = true, precision = 4)
     public Double getUnitPrice() {
         return unitPrice;
     }
@@ -89,7 +87,7 @@ public class DrugEntity {
     }
 
     @Basic
-    @Column(name = "PUT_ON_QTY")
+    @Column(name = "PUT_ON_QTY", nullable = true)
     public Integer getPutOnQty() {
         return putOnQty;
     }
@@ -99,7 +97,7 @@ public class DrugEntity {
     }
 
     @Basic
-    @Column(name = "PUT_OFF_QTY")
+    @Column(name = "PUT_OFF_QTY", nullable = true)
     public Integer getPutOffQty() {
         return putOffQty;
     }
@@ -109,7 +107,7 @@ public class DrugEntity {
     }
 
     @Basic
-    @Column(name = "SALE_QTY")
+    @Column(name = "SALE_QTY", nullable = true)
     public Integer getSaleQty() {
         return saleQty;
     }

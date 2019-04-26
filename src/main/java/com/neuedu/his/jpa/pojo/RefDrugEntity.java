@@ -3,9 +3,6 @@ package com.neuedu.his.jpa.pojo;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * 退药实体类
- */
 @Entity
 @Table(name = "ref_drug", schema = "his", catalog = "")
 public class RefDrugEntity {
@@ -20,7 +17,7 @@ public class RefDrugEntity {
     private String refRemarks;
 
     @Id
-    @Column(name = "REFUND_NO")
+    @Column(name = "REFUND_NO", nullable = false, length = 12)
     public String getRefundNo() {
         return refundNo;
     }
@@ -30,7 +27,7 @@ public class RefDrugEntity {
     }
 
     @Basic
-    @Column(name = "RECIPE_NO")
+    @Column(name = "RECIPE_NO", nullable = true, length = 14)
     public String getRecipeNo() {
         return recipeNo;
     }
@@ -40,7 +37,7 @@ public class RefDrugEntity {
     }
 
     @Basic
-    @Column(name = "REF_STATUS")
+    @Column(name = "REF_STATUS", nullable = true)
     public Integer getRefStatus() {
         return refStatus;
     }
@@ -50,7 +47,7 @@ public class RefDrugEntity {
     }
 
     @Basic
-    @Column(name = "RECIPE_COST")
+    @Column(name = "RECIPE_COST", nullable = true, precision = 2)
     public Double getRecipeCost() {
         return recipeCost;
     }
@@ -60,7 +57,7 @@ public class RefDrugEntity {
     }
 
     @Basic
-    @Column(name = "REFUND_COST")
+    @Column(name = "REFUND_COST", nullable = true, precision = 2)
     public Double getRefundCost() {
         return refundCost;
     }
@@ -70,7 +67,7 @@ public class RefDrugEntity {
     }
 
     @Basic
-    @Column(name = "REF_FLAG")
+    @Column(name = "REF_FLAG", nullable = true, length = 1)
     public String getRefFlag() {
         return refFlag;
     }
@@ -80,7 +77,7 @@ public class RefDrugEntity {
     }
 
     @Basic
-    @Column(name = "REF_DATE")
+    @Column(name = "REF_DATE", nullable = true)
     public Timestamp getRefDate() {
         return refDate;
     }
@@ -90,7 +87,7 @@ public class RefDrugEntity {
     }
 
     @Basic
-    @Column(name = "REF_APPLY_DATE")
+    @Column(name = "REF_APPLY_DATE", nullable = true)
     public Timestamp getRefApplyDate() {
         return refApplyDate;
     }
@@ -100,7 +97,7 @@ public class RefDrugEntity {
     }
 
     @Basic
-    @Column(name = "REF_REMARKS")
+    @Column(name = "REF_REMARKS", nullable = true, length = 100)
     public String getRefRemarks() {
         return refRemarks;
     }

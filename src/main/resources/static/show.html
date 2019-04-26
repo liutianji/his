@@ -116,11 +116,13 @@
                         )
                     };
             return function(table, name) {
+                //将动态数据  添加到excel 中
                 if (!table.nodeType) {
-                    table = document.getElementById(table)
+                    table = document.querySelector('[lay-id="ta"] .layui-table-header table').innerHTML+
+                            document.querySelector('[lay-id="ta"] .layui-table-body table').innerHTML;
                 }
                 // 获取表单的名字和表单查询的内容
-                var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML};
+                var ctx = {worksheet: name || 'Worksheet', table: table};
                 // format()函数：通过格式操作使任意类型的数据转换成一个字符串
                 // base64()：进行编码
                 window.location.href = uri + base64(format(template, ctx))

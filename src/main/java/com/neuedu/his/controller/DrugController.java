@@ -12,5 +12,5 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @EnableAutoConfiguration
-public class DrugManageController {
+public class DrugController {
 }

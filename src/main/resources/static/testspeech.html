@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://localhost:8088/his/js/jquery-3.3.1.min.js"></script>
+<script>
+    $(function(){
+        console.log(getUrlParam(document.href,"test"));
+    });
+    function getUrlParam(url,name) {
+        var pattern = new RegExp("[?&]"+name+"\=([^&]+)", "g");
+        var matcher = pattern.exec(url);
+        var items = null;
+        if(null != matcher){
+            try{
+                items = decodeURIComponent(decodeURIComponent(matcher[1]));
+            }catch(e){
+                try{
+                    items = decodeURIComponent(matcher[1]);
+                }catch(e){
+                    items = matcher[1];
+                }
+            }
+        }
+        return items;
+    }
+
+</script>
+</head>
+<body>
+<button value="点我" onclick="speckText('哈哈')"></button>
+<input  id="" value="${}">
+<script>
+    function speckText(str){
+        //var request=  new URLRequest();
+        var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(str);        // baidu
+        //url = "http://translate.google.cn/translate_tts?ie=UTF-8&tl=zh-CN&total=1&idx=0&textlen=19&prev=input&q=" + encodeURI(str); // google
+
+        //request.url = encodeURI(url);
+        // request.contentType = "audio/mp3"; // for baidu
+        //request.contentType = "audio/mpeg"; // for google
+
+        var n = new Audio(url);
+
+        n.src = url;
+
+        n.play();
+        console.log(getUrlParam(document.href,"test"));
+
+        // $("...").play();
+        // var sound = new Sound(request);
+        // sound.play();
+    }
+</script>
+</body>
+</html>

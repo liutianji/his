@@ -21,7 +21,7 @@ public class TestUserServiceImpl implements TestUserService{
     }
 
     @Override
-    @Cacheable(value = "all", keyGenerator = "wiselyKeyGenerator")
+    @Cacheable(value = "all#90#5", keyGenerator = "wiselyKeyGenerator")
     public List<TestUser> testFindAll() {
         List<TestUser> users = testUserMapper.selectUsers();
         System.out.println("执行了查询！");

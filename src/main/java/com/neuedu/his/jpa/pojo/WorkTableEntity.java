@@ -2,9 +2,6 @@ package com.neuedu.his.jpa.pojo;
 
 import javax.persistence.*;
 
-/**
- * 工作台实体类
- */
 @Entity
 @Table(name = "work_table", schema = "his", catalog = "")
 public class WorkTableEntity {
@@ -15,7 +12,7 @@ public class WorkTableEntity {
     private Integer maxNum;
 
     @Id
-    @Column(name = "WTABLE_NO")
+    @Column(name = "WTABLE_NO", nullable = false, length = 12)
     public String getWtableNo() {
         return wtableNo;
     }
@@ -25,7 +22,7 @@ public class WorkTableEntity {
     }
 
     @Basic
-    @Column(name = "WTABLE_NAME")
+    @Column(name = "WTABLE_NAME", nullable = true, length = 40)
     public String getWtableName() {
         return wtableName;
     }
@@ -35,7 +32,7 @@ public class WorkTableEntity {
     }
 
     @Basic
-    @Column(name = "WTABLE_POSITION")
+    @Column(name = "WTABLE_POSITION", nullable = true, length = 14)
     public String getWtablePosition() {
         return wtablePosition;
     }
@@ -45,7 +42,7 @@ public class WorkTableEntity {
     }
 
     @Basic
-    @Column(name = "WTABLE_FLAG")
+    @Column(name = "WTABLE_FLAG", nullable = true, length = 2)
     public String getWtableFlag() {
         return wtableFlag;
     }
@@ -55,7 +52,7 @@ public class WorkTableEntity {
     }
 
     @Basic
-    @Column(name = "MAX_NUM")
+    @Column(name = "MAX_NUM", nullable = true)
     public Integer getMaxNum() {
         return maxNum;
     }

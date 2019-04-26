@@ -1,10 +1,15 @@
 package com.neuedu.his;
 
+import com.neuedu.his.dao.PhaStoRecipeRepository;
 import com.neuedu.his.dao.UserRepository;
 import com.neuedu.his.jpa.pojo.PhaStoRecipeEntity;
 import com.neuedu.his.jpa.pojo.TestUserEntity;
 import com.neuedu.his.mapper.PhaStoRecipeEntityMapper;
 import com.neuedu.his.pojo.TestUser;
+import com.neuedu.his.service.RecipeService;
+import com.neuedu.his.service.RecipeServiceImpl;
+import com.neuedu.his.util.BeanUtil;
+import com.neuedu.his.vo.PhaStoRecipeVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +35,11 @@ public class HisApplicationTests {
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 	@Autowired
-	UserRepository userRepository;
+	UserRepository           userRepository;
 	@Autowired
 	PhaStoRecipeEntityMapper phaStoRecipeEntityMapper;
+	@Autowired
+	PhaStoRecipeRepository phaStoRecipeRepository;
 	private String testString = "testString";
 	private String userKey = "neu_1";
 
@@ -137,5 +144,14 @@ public class HisApplicationTests {
 	public void testSelectByPrimaryKey(){
 		PhaStoRecipeEntity recipe = phaStoRecipeEntityMapper.selectByPrimaryKey("RN000001");
 		System.out.println(recipe.toString());
+	}
+
+	@Test
+	public void testFindRecipesVo(){
+		List<PhaStoRecipeEntity> entityList = phaStoRecipeRepository.findAll();
+		List<PhaStoRecipeVO> phaStoRecipeVOs = BeanUtil.copyList(entityList,PhaStoRecipeVO.class);
+		//处理年龄
+		phaStoRecipeVOs.forEach(VOs -> VOs.setAge());
+		phaStoRecipeVOs.forEach(System.out::println);
 	}
 }

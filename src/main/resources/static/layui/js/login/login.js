@@ -1,4 +1,0 @@
-
-function login() {
-    $('loginForm').submit();
-}

@@ -4,9 +4,6 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-/**
- * 处方实体类
- */
 @Entity
 @Table(name = "pha_sto_recipe", schema = "his", catalog = "")
 public class PhaStoRecipeEntity {
@@ -37,40 +34,8 @@ public class PhaStoRecipeEntity {
     private String cancelOper;
     private Timestamp cancelDate;
 
-    @Override
-    public String toString() {
-        return "PhaStoRecipeEntity{" +
-                "recipeNo='" + recipeNo + '\'' +
-                ", recipeState='" + recipeState + '\'' +
-                ", cardNo='" + cardNo + '\'' +
-                ", patientName='" + patientName + '\'' +
-                ", sexCode='" + sexCode + '\'' +
-                ", birthday=" + birthday +
-                ", paykindCode='" + paykindCode + '\'' +
-                ", deptCode='" + deptCode + '\'' +
-                ", regDate=" + regDate +
-                ", doctCode='" + doctCode + '\'' +
-                ", doctDept='" + doctDept + '\'' +
-                ", feeOper='" + feeOper + '\'' +
-                ", feeDate=" + feeDate +
-                ", invoiceNo='" + invoiceNo + '\'' +
-                ", recipeCost=" + recipeCost +
-                ", drugedOper='" + drugedOper + '\'' +
-                ", drugedDept='" + drugedDept + '\'' +
-                ", drugedDate=" + drugedDate +
-                ", sendOper='" + sendOper + '\'' +
-                ", sendDate=" + sendDate +
-                ", sendDept='" + sendDept + '\'' +
-                ", validState='" + validState + '\'' +
-                ", backOper='" + backOper + '\'' +
-                ", backDate=" + backDate +
-                ", cancelOper='" + cancelOper + '\'' +
-                ", cancelDate=" + cancelDate +
-                '}';
-    }
-
     @Id
-    @Column(name = "RECIPE_NO")
+    @Column(name = "RECIPE_NO", nullable = false, length = 14)
     public String getRecipeNo() {
         return recipeNo;
     }
@@ -80,7 +45,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "RECIPE_STATE")
+    @Column(name = "RECIPE_STATE", nullable = true, length = 1)
     public String getRecipeState() {
         return recipeState;
     }
@@ -90,7 +55,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "CARD_NO")
+    @Column(name = "CARD_NO", nullable = true, length = 10)
     public String getCardNo() {
         return cardNo;
     }
@@ -100,7 +65,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "PATIENT_NAME")
+    @Column(name = "PATIENT_NAME", nullable = true, length = 40)
     public String getPatientName() {
         return patientName;
     }
@@ -110,7 +75,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "SEX_CODE")
+    @Column(name = "SEX_CODE", nullable = true, length = 2)
     public String getSexCode() {
         return sexCode;
     }
@@ -120,7 +85,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "BIRTHDAY")
+    @Column(name = "BIRTHDAY", nullable = true)
     public Date getBirthday() {
         return birthday;
     }
@@ -130,7 +95,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "PAYKIND_CODE")
+    @Column(name = "PAYKIND_CODE", nullable = true, length = 4)
     public String getPaykindCode() {
         return paykindCode;
     }
@@ -140,7 +105,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "DEPT_CODE")
+    @Column(name = "DEPT_CODE", nullable = true, length = 4)
     public String getDeptCode() {
         return deptCode;
     }
@@ -150,7 +115,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "REG_DATE")
+    @Column(name = "REG_DATE", nullable = true)
     public Timestamp getRegDate() {
         return regDate;
     }
@@ -160,7 +125,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "DOCT_CODE")
+    @Column(name = "DOCT_CODE", nullable = true, length = 6)
     public String getDoctCode() {
         return doctCode;
     }
@@ -170,7 +135,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "DOCT_DEPT")
+    @Column(name = "DOCT_DEPT", nullable = true, length = 4)
     public String getDoctDept() {
         return doctDept;
     }
@@ -180,7 +145,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "FEE_OPER")
+    @Column(name = "FEE_OPER", nullable = true, length = 6)
     public String getFeeOper() {
         return feeOper;
     }
@@ -190,7 +155,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "FEE_DATE")
+    @Column(name = "FEE_DATE", nullable = true)
     public Timestamp getFeeDate() {
         return feeDate;
     }
@@ -200,7 +165,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "INVOICE_NO")
+    @Column(name = "INVOICE_NO", nullable = true, length = 12)
     public String getInvoiceNo() {
         return invoiceNo;
     }
@@ -210,7 +175,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "RECIPE_COST")
+    @Column(name = "RECIPE_COST", nullable = true, precision = 2)
     public Double getRecipeCost() {
         return recipeCost;
     }
@@ -220,7 +185,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "DRUGED_OPER")
+    @Column(name = "DRUGED_OPER", nullable = true, length = 6)
     public String getDrugedOper() {
         return drugedOper;
     }
@@ -230,7 +195,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "DRUGED_DEPT")
+    @Column(name = "DRUGED_DEPT", nullable = true, length = 4)
     public String getDrugedDept() {
         return drugedDept;
     }
@@ -240,7 +205,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "DRUGED_DATE")
+    @Column(name = "DRUGED_DATE", nullable = true)
     public Timestamp getDrugedDate() {
         return drugedDate;
     }
@@ -250,7 +215,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "SEND_OPER")
+    @Column(name = "SEND_OPER", nullable = true, length = 6)
     public String getSendOper() {
         return sendOper;
     }
@@ -260,7 +225,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "SEND_DATE")
+    @Column(name = "SEND_DATE", nullable = true)
     public Timestamp getSendDate() {
         return sendDate;
     }
@@ -270,7 +235,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "SEND_DEPT")
+    @Column(name = "SEND_DEPT", nullable = true, length = 4)
     public String getSendDept() {
         return sendDept;
     }
@@ -280,7 +245,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "VALID_STATE")
+    @Column(name = "VALID_STATE", nullable = true, length = 1)
     public String getValidState() {
         return validState;
     }
@@ -290,7 +255,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "BACK_OPER")
+    @Column(name = "BACK_OPER", nullable = true, length = 6)
     public String getBackOper() {
         return backOper;
     }
@@ -300,7 +265,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "BACK_DATE")
+    @Column(name = "BACK_DATE", nullable = true)
     public Timestamp getBackDate() {
         return backDate;
     }
@@ -310,7 +275,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "CANCEL_OPER")
+    @Column(name = "CANCEL_OPER", nullable = true, length = 6)
     public String getCancelOper() {
         return cancelOper;
     }
@@ -320,7 +285,7 @@ public class PhaStoRecipeEntity {
     }
 
     @Basic
-    @Column(name = "CANCEL_DATE")
+    @Column(name = "CANCEL_DATE", nullable = true)
     public Timestamp getCancelDate() {
         return cancelDate;
     }
@@ -395,5 +360,37 @@ public class PhaStoRecipeEntity {
         result = 31 * result + (cancelOper != null ? cancelOper.hashCode() : 0);
         result = 31 * result + (cancelDate != null ? cancelDate.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "PhaStoRecipeEntity{" +
+                "recipeNo='" + recipeNo + '\'' +
+                ", recipeState='" + recipeState + '\'' +
+                ", cardNo='" + cardNo + '\'' +
+                ", patientName='" + patientName + '\'' +
+                ", sexCode='" + sexCode + '\'' +
+                ", birthday=" + birthday +
+                ", paykindCode='" + paykindCode + '\'' +
+                ", deptCode='" + deptCode + '\'' +
+                ", regDate=" + regDate +
+                ", doctCode='" + doctCode + '\'' +
+                ", doctDept='" + doctDept + '\'' +
+                ", feeOper='" + feeOper + '\'' +
+                ", feeDate=" + feeDate +
+                ", invoiceNo='" + invoiceNo + '\'' +
+                ", recipeCost=" + recipeCost +
+                ", drugedOper='" + drugedOper + '\'' +
+                ", drugedDept='" + drugedDept + '\'' +
+                ", drugedDate=" + drugedDate +
+                ", sendOper='" + sendOper + '\'' +
+                ", sendDate=" + sendDate +
+                ", sendDept='" + sendDept + '\'' +
+                ", validState='" + validState + '\'' +
+                ", backOper='" + backOper + '\'' +
+                ", backDate=" + backDate +
+                ", cancelOper='" + cancelOper + '\'' +
+                ", cancelDate=" + cancelDate +
+                '}';
     }
 }

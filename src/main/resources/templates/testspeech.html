@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://localhost:8088/his/js/jquery-3.3.1.min.js"></script>
+    <script>
+        $(function(){
+            init();
+        });
+function init() {
+    $.ajax({
+        type:"post",//传输方式
+        url:"requestJson",//后台处理的controller对应的mapping
+        contentType:"application/json;charset=utf-8",
+        dataType:"json",//接收数据格式
+        data:'{"id":1,"username":"Neu"}',//传输到后台的数据
+        //后台如果传值再给前台  这里   function需要填参数   参数名可以任意
+        success:function(data){
+            //返回的json数据如果是date类型  显示的是时间戳  需要简易处理
+            $('#msg').html(data.username+"<br>"+data.birthday);
+
+        },
+        error:function(){
+            alert("通讯错误!");
+        }
+    });
+}
+
+    </script>
+
+</head>
+<body>
+
+<button value="点我" onclick="speckText('哈哈')"></button>
+<script>
+    function speckText(str){
+        //var request=  new URLRequest();
+        var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(str);        // baidu
+        //url = "http://translate.google.cn/translate_tts?ie=UTF-8&tl=zh-CN&total=1&idx=0&textlen=19&prev=input&q=" + encodeURI(str); // google
+
+        //request.url = encodeURI(url);
+        // request.contentType = "audio/mp3"; // for baidu
+        //request.contentType = "audio/mpeg"; // for google
+
+        var n = new Audio(url);
+
+        n.src = url;
+
+        n.play();
+
+        // $("...").play();
+        // var sound = new Sound(request);
+        // sound.play();
+    }
+</script>
+</body>
+</html>

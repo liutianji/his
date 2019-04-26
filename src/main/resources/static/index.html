@@ -8,7 +8,9 @@
 		<title>门诊药房首页</title>
 		<!--改变tomcat图标-->
 		<link rel="shortcut icon"
-			  href="images/icon.gif" type="image/x-icon" />
+			  href="layui/images/icon.gif" type="image/x-icon" />
+		<link rel="stylesheet" type="text/css" href="http://localhost:8088/his/layui/css/layui.css"/>
+		<script src="http://localhost:8088/his/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css">
 
 			.black{
@@ -79,8 +81,7 @@
 			setInterval("getCurDate()",100);
 
 		</script>
-		<link rel="stylesheet" type="text/css" href="layui/css/layui.css"/>
-		<script src="layui/layui.js" type="text/javascript" charset="utf-8"></script>
+
 
 	</head>
 	<body>
@@ -133,42 +134,62 @@
 		});
 	</script>
 	<script type="text/javascript">
-		function fayao(){
-		layer.open({
-			type: 1,//0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-			title: ['检索数据', 'font-size:14px;color:white;background-color:#0000cc;text-align:left;'],
-			content: "<input type='text' >&nbsp;&nbsp;&nbsp;<input type='checkbox' lay-skin='switch' lay-filter='encrypt' title='是否加密'> &nbsp;&nbsp;模糊<//p>" +
-			"		<table id='fayao' lay-filter='test'></table>"+
-			"<script>layui.use('table', function(){"+
-			"					var table = layui.table;"+
-			"					table.render({"+
-			"						elem: '#fayao'"+
-			"						,url: 'data/tableJson.json'"+
-			"						,page: true"+
-			"						,cols: [["+
-			"							{field: '', title: '', width:80}"+
-			"							,{field: 'id', title: '编码', width:80}"+
-			"							,{field: 'name', title: '名称', width:80}"+
-			"						]]"+
-			"					});"+
-			"				});<"+
-			"/script>",
-			cancel: function(index, layero){
-				if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
-					layer.close(index)
-				}
-				return false;
-			},
-			offset: '100px',
-			btn: ['确认', '取消'],
-			btn1: function(){
-				alert("点击了确认");
-			}
-		});
-		}
+        function fayao(){
+            layer.open({
+                type: 1,//0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                title: ['检索数据', 'font-size:14px;color:white;background-color:#0000cc;text-align:left;'],
+                content: "<input type='text' >&nbsp;&nbsp;&nbsp;<input type='checkbox' lay-skin='switch' lay-filter='encrypt' title='是否加密'> &nbsp;&nbsp;模糊<//p>" +
+                "		<table id='fayao' lay-filter='test' lay-data=\"{id: 'idTest'}\"></table>"+
+                "<script>layui.use('table', function(){\n"+
+                "					var table = layui.table;\n"+
+                "					table.render({\n"+
+                "						id: 'idTest'\n"+
+                "						,elem: '#fayao'\n"+
+                "						,url: 'data/tableJson.json'\n"+
+                "						,page: true\n"+
+                "						,cols: [[\n"+
+                "							{field: '', title: '', width:80}\n"+
+                "							,{field: 'id', title: '编码', width:80}\n"+
+                "							,{field: 'name', title: '名称', width:80}\n"+
+                "						]]\n"+
+                "					});\n" +
+                "table.on('row(test)', function(obj){\n" +
+                "var b = obj.tr.selector.toString()\n"+
+                "console.log('test:'+b)\n"+
+                "console.log('test2:'+b.charAt(b.length-3))\n"+
+                "console.log('test3:'+obj)\n" +
+                "var list = document.getElementsByTagName('tr')\n" +
+                "for(i=0;i<list.length;i++){\n" +
+                "list[i].style.background=''" +
+                "}\n" +
+                "document.querySelector('[data-index=\"'+b.charAt(b.length-3)+'\"]').style.background=\"#1E9FFF\"\n" +
+                "document.getElementById('data').value=obj.data.id+obj.data.name"+
+
+                "});\n" +
+                "				});<"+
+                "/script>",
+                cancel: function(index, layero){
+
+                    if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                        layer.close(index)
+                    }
+                    return false;
+                },
+                offset: '100px',
+                btn: ['确认', '取消'],
+                btn1: function(){
+
+                    var value = document.getElementById('data').value;
+                    //
+                    alert(value);
+                }
+            });
+        }
+
 	</script>
 
 	<!--系统时间-->
 	系统时间：<span id="divT"></span>
+	<input type="hidden" id="data">
 	</body>
 </html>

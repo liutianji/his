@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>配药页面</title>
+    <!--改变tomcat图标-->
+    <link rel="shortcut icon"
+          href="images/icon.gif" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="http://localhost:8088/his/layui/css/layui.css"/>
+    <script src="http://localhost:8088/his/js/jquery-3.3.1.min.js"></script>
+
+    <script src="http://localhost:8088/his/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://localhost:8088/his/js/his_py.js"></script>
+    <script src="http://localhost:8088/his/js/myalert.js"></script>
+    <script>
+        var flag = 0;
+    </script>
+</head>
+<body>
+<!--点击门诊配药要显示的内容-->
+<div id="show" style="position: absolute;left: 32px;border: 0px;width: 1281px;">
+    <ul class="layui-nav" lay-filter="" style="background-color: #FFFFFF;color:black;border: 1px solid gainsboro">
+        <li class="layui-nav-item" style="border-right: 1px solid gainsboro"><a href="javascript:;"><i
+                class="layui-icon layui-icon-refresh-3" style="font-size: 50px; color: #0000cc;"><span
+                style="color: black;font-family: layui-icon ">刷新（+）</span></i></a></li>
+        <li class="layui-nav-item" style="border-right: 1px solid gainsboro"><a href="javascript:;"><i
+                class="layui-icon layui-icon-download-circle" style="font-size: 50px; color: #0000cc;"><span
+                style="color: black;font-family: layui-icon ">下载（P）</span></i></a></li>
+        <li class="layui-nav-item" style="border-right: 1px solid gainsboro"><a href="javascript:;"><i
+                class="layui-icon layui-icon-file-b" style="font-size: 50px; color: #0000cc;"><span
+                style="color: black;font-family: layui-icon ">处方单</span></i></a></li>
+        <li class="layui-nav-item" style="border-right: 1px solid gainsboro"><a href="javascript:;" onclick="fayao()"><i
+                class="layui-icon layui-icon-ok-circle" style="font-size: 50px; color: #0000cc;"><span
+                style="color: black;font-family: layui-icon ">确认</span></i></a></li>
+        <li class="layui-nav-item" style="border-right: 1px solid gainsboro"><a href="javascript:;"><i
+                class="layui-icon layui-icon-close" style="font-size: 50px; color: #0000cc;"><span
+                style="color: black;font-family: layui-icon ">退出</span></i></a></li>
+    </ul>
+    <!--页面左边内容-->
+    <div class="layui-edge-left" style="border: 0px">
+        <i class="layui-icon layui-icon-file-b"></i> &nbsp;&nbsp;&nbsp;<a href="#"
+                                                                          style="color: #0000cc;text-decoration:underline;font-size: 16px;">处方号</a>
+        <input type="text" name="" placeholder="1191761" id="recipeNo">
+        <div class="layui-tab">
+            <ul class="layui-tab-title">
+                <li class="layui-this" id="yesPrint" th:onclick="selectTag(0)">已打印</li>
+                <!-- th:onclick="test2()"-->
+                <li id="noPrint" th:onclick="selectTag(1)">未打印</li>
+            </ul>
+            <!-- 这里的div需要根据已发药和未发药状态不同进行处理-->
+            <div style="width: 254px;height:550px;border: 1px solid gainsboro" class="layui-tab-content">
+                <!-- th:each="p,pStat :${psrList}"  -->
+                <ul style="padding-left: 20px;padding-bottom: 10px;" class="layui-tab-item layui-show" id="ul_yesprint">
+
+                </ul>
+                <div style="width: 254px;height:550px;" class="layui-tab-item">
+                    <ul style="padding-left: 20px;padding-bottom: 10px;" class="layui-tab-item layui-show"
+                        id="ul_noprint">
+
+                    </ul>
+                </div>
+
+            </div>
+            <div style="width: 274px;height:50px;border: 1px solid gainsboro">
+                <ul style="padding-left: 20px;padding-bottom: 10px;">
+                    <li><span style="color: #0000cc">工号</span>&nbsp;&nbsp;&nbsp;<input type="password" value="1234567">
+                    </li>
+                    <li><span style="color: #0000cc">姓名</span>&nbsp;&nbsp;&nbsp;药房管理员</li>
+                </ul>
+            </div>
+
+        </div>
+        <!--中间内容   动态获取数据  改造该段-->
+        <div style="position: absolute;top: 81px;left: 280px;border: 0px">
+            <div>
+                <p style="color: #0000cc;font-size: 14px;line-height: 20px;" id="p_msg1">
+                </p>
+                <br>
+                <p id="p_msg2">
+                </p>
+                <br>
+                <div>
+                    <p id="allSumSale" style="color: red;font-size: 25px;line-height: 30px;">0.0元</p>
+                </div>
+                <!--表格-->
+                <div>
+                    <table id="demo" lay-filter="test"></table>
+
+
+                </div>
+
+
+                <!-- 操作台数据替换 -->
+                <div style="position: absolute;top:693px;right: 0"> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;操作员：药房管理员
+                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;门诊药房&nbsp;—&nbsp;门诊药房发药窗口1（194）
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+</script>
+
+
+<script type="text/javascript">
+    var fy_data = {};
+
+    function fayao() {
+        //console.log("发药："+flag);
+        //if(0==flag){
+            layer.open({
+                type: 1,//0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                title: ['检索数据', 'font-size:14px;color:white;background-color:#0000cc;text-align:left;'],
+                content: "<input type='text' >&nbsp;&nbsp;&nbsp;<input type='checkbox' lay-skin='switch' lay-filter='encrypt' title='是否加密'> &nbsp;&nbsp;模糊</p>" +
+                "		<table id='fayao' lay-filter='test'></table>" +
+                "<script>layui.use('table', function(){" +
+                "					var table = layui.table;" +
+                "					table.render({" +
+                "						elem: '#fayao'" +
+                "						,url: 'http://localhost:8088/his/wtJSON/wtableAll/fy'" +
+                "						,page: true" +
+                "						,cols: [" +
+                "[" +
+                "							{field: '', title: '', width:80}" +
+                "							,{field: 'wtableNo', title: '编码', width:120}" +
+                "							,{field: 'wtableName', title: '名称', width:120}" +
+                "						]" +
+                "]" +
+                "					});" +
+                //设置表格的点击事件
+                "table.on('row(test)', function(obj1){" +
+                /* "console.log(this);var current=$(obj1); console.log(\"haha:\"); console.log(obj1); console.log(obj1.data.wtableName);console.log(obj1.tr);console.log(obj1.tr[\"0\"].getAttribute(\"data-index\"));" +
+                 "console.log('test3:'+obj1);" +*/
+                //将所有 tr标签  style 设置为空
+                "var list = document.getElementsByTagName('tr');" +
+                "for(i=0;i<list.length;i++){" +
+                "list[i].style.background=''" +
+                "}" +
+                //设置当前选中颜色
+                "this.style.backgroundColor=\"#1E9FFF\";" +
+                "$('#fy_info').val(obj1.data.wtableName);" +
+                //设置点击后的信息处理
+                "fy_data={};" +
+                "fy_data.sendDept=obj1.data.wtableName;" +
+                "fy_data.wtableNo=obj1.data.wtableNo"+
+                /* "console.log(fy_data);" +*/
+                "});" +
+
+                "				});<" +
+                "/script>",
+                cancel: function (index, layero) {
+                    if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
+                        layer.close(index)
+                    }
+                    return false;
+                },
+                offset: '100px',
+                btn: ['确认', '取消'],
+                btn1: function (index) {
+                    //var value = document.getElementById('fy_info').value;
+                    //
+                    //判断是否选择了发药台
+                    if(null==fy_data.sendDept||fy_data.sendDept==""){
+                        //zdalert("系统提示:","请选择发药台！");
+                        alert("请选择发药台！");
+                    }else{
+                        //选择配药台后  提示已经选择的配药台
+                        if (confirm(fy_data.sendDept)) { //只有当点击confirm框的确定时，该层才会关闭
+                            //处理事件
+                            var recipeNo = $('#recipeNo').attr("placeholder");
+                            //将处方号添加到fy_data中
+                            fy_data.recipeNo=recipeNo;
+                            // console.log(fy_data);
+                            //后台交互，将处方号、发药台编号、发药台发送给后台
+                            $.ajax({
+                                type:"post",//传输方式
+                                url:"http://localhost:8088/his/od/toDrugedSuccess",//后台处理的controller对应的mapping
+                                contentType:"application/json;charset=utf-8",
+                                dataType:"json",//接收数据格式
+                                data:JSON.stringify(fy_data) ,//传输到后台的数据
+                                //后台如果传值再给前台  这里   function需要填参数   参数名可以任意
+                                success:function(data){
+                                    //返回的json数据如果是date类型  显示的是时间戳  需要简易处理
+                                    console.log("message:"+data.msg);
+
+                                },
+                                error:function(e){
+                                    console.log(e.EventException);
+                                    alert("通讯错误!");
+                                }
+                            });
+
+                            //清空fy)data  关闭当前页面
+                            fy_data={};
+                            layer.close(index);
+                        }
+                        return false;
+                    }
+
+                }
+            });
+        //}else {
+        //    alert("qing请先交费！");
+
+        //}
+    }
+</script>
+<!-- 用于暂时保存页面中  发药台选择的内容-->
+<input type="hidden" id="fy_info">
+</body>
+</html>

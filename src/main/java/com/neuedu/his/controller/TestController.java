@@ -22,6 +22,14 @@ public class TestController {
     @Autowired
     private UserRepositoryService userRepositoryService;
 
+    @RequestMapping("/testIndex")
+    public String testIndex(){
+        return "his_index";
+    }
+    @RequestMapping("/toTestPeiYao")
+    public String toTestPeiYao(){
+        return "his_peiyao";
+    }
     @RequestMapping("/test1")
     public String test1(Model model){
         TestUser user = testUserService.testFindUserById("1");
@@ -50,5 +58,13 @@ public class TestController {
     @RequestMapping("/findUsers")
     public @ResponseBody List<TestUser> findUsers(){
         return testUserService.testFindAll();
+    }
+
+    /*
+        test.html
+     */
+    @RequestMapping("/toTest")
+    public String toTest(){
+        return "test";
     }
 }

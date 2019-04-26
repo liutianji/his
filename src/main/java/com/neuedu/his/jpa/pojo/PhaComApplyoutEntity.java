@@ -3,13 +3,11 @@ package com.neuedu.his.jpa.pojo;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * 处方详情实体类
- */
 @Entity
 @Table(name = "pha_com_applyout", schema = "his", catalog = "")
 public class PhaComApplyoutEntity {
     private String outNo;
+    private String recipeNo;
     private String deptCode;
     private String drugCode;
     private String tradeName;
@@ -39,7 +37,7 @@ public class PhaComApplyoutEntity {
     private String dfqFreq;
 
     @Id
-    @Column(name = "OUT_NO")
+    @Column(name = "OUT_NO", nullable = false, length = 14)
     public String getOutNo() {
         return outNo;
     }
@@ -49,7 +47,17 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "DEPT_CODE")
+    @Column(name = "RECIPE_NO", nullable = true, length = 14)
+    public String getRecipeNo() {
+        return recipeNo;
+    }
+
+    public void setRecipeNo(String recipeNo) {
+        this.recipeNo = recipeNo;
+    }
+
+    @Basic
+    @Column(name = "DEPT_CODE", nullable = true, length = 4)
     public String getDeptCode() {
         return deptCode;
     }
@@ -59,7 +67,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "DRUG_CODE")
+    @Column(name = "DRUG_CODE", nullable = true, length = 12)
     public String getDrugCode() {
         return drugCode;
     }
@@ -69,7 +77,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "TRADE_NAME")
+    @Column(name = "TRADE_NAME", nullable = true, length = 50)
     public String getTradeName() {
         return tradeName;
     }
@@ -79,7 +87,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "BATCH_NO")
+    @Column(name = "BATCH_NO", nullable = true, length = 32)
     public String getBatchNo() {
         return batchNo;
     }
@@ -89,7 +97,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "DRUG_TYPE")
+    @Column(name = "DRUG_TYPE", nullable = true, length = 2)
     public String getDrugType() {
         return drugType;
     }
@@ -99,7 +107,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "DRUG_QUALITY")
+    @Column(name = "DRUG_QUALITY", nullable = true, length = 2)
     public String getDrugQuality() {
         return drugQuality;
     }
@@ -109,7 +117,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "SPECS")
+    @Column(name = "SPECS", nullable = true, length = 32)
     public String getSpecs() {
         return specs;
     }
@@ -119,7 +127,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "PACK_UNIT")
+    @Column(name = "PACK_UNIT", nullable = true, length = 16)
     public String getPackUnit() {
         return packUnit;
     }
@@ -129,7 +137,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "PACK_QTY")
+    @Column(name = "PACK_QTY", nullable = true)
     public Integer getPackQty() {
         return packQty;
     }
@@ -139,7 +147,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "MIN_UNIT")
+    @Column(name = "MIN_UNIT", nullable = true, length = 16)
     public String getMinUnit() {
         return minUnit;
     }
@@ -149,7 +157,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "SHOW_FLAG")
+    @Column(name = "SHOW_FLAG", nullable = true, length = 1)
     public String getShowFlag() {
         return showFlag;
     }
@@ -159,7 +167,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "SHOW_UNIT")
+    @Column(name = "SHOW_UNIT", nullable = true, length = 16)
     public String getShowUnit() {
         return showUnit;
     }
@@ -169,7 +177,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "APPLY_DATE")
+    @Column(name = "APPLY_DATE", nullable = true)
     public Timestamp getApplyDate() {
         return applyDate;
     }
@@ -179,7 +187,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "APPLY_STATE")
+    @Column(name = "APPLY_STATE", nullable = true, length = 1)
     public String getApplyState() {
         return applyState;
     }
@@ -189,7 +197,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "APPLY_NUM")
+    @Column(name = "APPLY_NUM", nullable = true, precision = 4)
     public Double getApplyNum() {
         return applyNum;
     }
@@ -199,7 +207,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "MODIFY_FLAG")
+    @Column(name = "MODIFY_FLAG", nullable = true, length = 1)
     public String getModifyFlag() {
         return modifyFlag;
     }
@@ -209,7 +217,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "CHARGE_FLAG")
+    @Column(name = "CHARGE_FLAG", nullable = true, length = 1)
     public String getChargeFlag() {
         return chargeFlag;
     }
@@ -219,7 +227,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "DRUGED_BILL")
+    @Column(name = "DRUGED_BILL", nullable = true, length = 18)
     public String getDrugedBill() {
         return drugedBill;
     }
@@ -229,7 +237,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "DRUGED_DEPT")
+    @Column(name = "DRUGED_DEPT", nullable = true, length = 4)
     public String getDrugedDept() {
         return drugedDept;
     }
@@ -239,7 +247,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "DRUGED_EMPL")
+    @Column(name = "DRUGED_EMPL", nullable = true, length = 6)
     public String getDrugedEmpl() {
         return drugedEmpl;
     }
@@ -249,7 +257,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "DRUGED_DATE")
+    @Column(name = "DRUGED_DATE", nullable = true)
     public Timestamp getDrugedDate() {
         return drugedDate;
     }
@@ -259,7 +267,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "DRUGED_NUM")
+    @Column(name = "DRUGED_NUM", nullable = true, precision = 4)
     public Double getDrugedNum() {
         return drugedNum;
     }
@@ -269,7 +277,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "DOSE_ONCE")
+    @Column(name = "DOSE_ONCE", nullable = true, precision = 4)
     public Double getDoseOnce() {
         return doseOnce;
     }
@@ -279,7 +287,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "DOSE_UNIT")
+    @Column(name = "DOSE_UNIT", nullable = true, length = 16)
     public String getDoseUnit() {
         return doseUnit;
     }
@@ -289,7 +297,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "USAGE_CODE")
+    @Column(name = "USAGE_CODE", nullable = true, length = 3)
     public String getUsageCode() {
         return usageCode;
     }
@@ -299,7 +307,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "USE_NAME")
+    @Column(name = "USE_NAME", nullable = true, length = 20)
     public String getUseName() {
         return useName;
     }
@@ -309,7 +317,7 @@ public class PhaComApplyoutEntity {
     }
 
     @Basic
-    @Column(name = "DFQ_FREQ")
+    @Column(name = "DFQ_FREQ", nullable = true, length = 6)
     public String getDfqFreq() {
         return dfqFreq;
     }
@@ -326,6 +334,7 @@ public class PhaComApplyoutEntity {
         PhaComApplyoutEntity that = (PhaComApplyoutEntity) o;
 
         if (outNo != null ? !outNo.equals(that.outNo) : that.outNo != null) return false;
+        if (recipeNo != null ? !recipeNo.equals(that.recipeNo) : that.recipeNo != null) return false;
         if (deptCode != null ? !deptCode.equals(that.deptCode) : that.deptCode != null) return false;
         if (drugCode != null ? !drugCode.equals(that.drugCode) : that.drugCode != null) return false;
         if (tradeName != null ? !tradeName.equals(that.tradeName) : that.tradeName != null) return false;
@@ -360,6 +369,7 @@ public class PhaComApplyoutEntity {
     @Override
     public int hashCode() {
         int result = outNo != null ? outNo.hashCode() : 0;
+        result = 31 * result + (recipeNo != null ? recipeNo.hashCode() : 0);
         result = 31 * result + (deptCode != null ? deptCode.hashCode() : 0);
         result = 31 * result + (drugCode != null ? drugCode.hashCode() : 0);
         result = 31 * result + (tradeName != null ? tradeName.hashCode() : 0);

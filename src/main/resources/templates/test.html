@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://localhost:8088/his/js/jquery-3.3.1.min.js"></script>
+    <script>
+        var jsonData = "";
+        $(function(){
+            //将数据放到全局对象中
+            $.getJSON("http://localhost:8088/his/odJSON/recipes2",function (result) {
+                console.log(result.yesPrintFirstVO.recipeNo);
+
+                jsonData = result;
+                console.log("in:"+jsonData);
+            });
+            //console.log("out"+jsonData);
+
+        });
+        
+        function test1() {
+            //点击后获取全局变量（json数据中）的内容
+            //获取对象中的信息
+            console.log(jsonData.yesPrintFirstVO.patientName);
+            //获取对象中  集合对象中对象的值
+            console.log("第一组:"+jsonData.yesPrintListVO[0].patientName);
+        }
+    </script>
+</head>
+<body>
+    <input type="button" onclick="test1()">
+</body>
+</html>

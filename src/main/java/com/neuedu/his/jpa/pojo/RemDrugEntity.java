@@ -3,9 +3,6 @@ package com.neuedu.his.jpa.pojo;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * 拿药提醒实体类
- */
 @Entity
 @Table(name = "rem_drug", schema = "his", catalog = "")
 public class RemDrugEntity {
@@ -18,8 +15,22 @@ public class RemDrugEntity {
     private Timestamp remDate;
     private Timestamp drugedDate;
 
+    @Override
+    public String toString() {
+        return "RemDrugEntity{" +
+                "remNo='" + remNo + '\'' +
+                ", recipeNo='" + recipeNo + '\'' +
+                ", patientName='" + patientName + '\'' +
+                ", wtableNo='" + wtableNo + '\'' +
+                ", remRemarks='" + remRemarks + '\'' +
+                ", remStatus=" + remStatus +
+                ", remDate=" + remDate +
+                ", drugedDate=" + drugedDate +
+                '}';
+    }
+
     @Id
-    @Column(name = "REM_NO")
+    @Column(name = "REM_NO", nullable = false, length = 12)
     public String getRemNo() {
         return remNo;
     }
@@ -29,7 +40,7 @@ public class RemDrugEntity {
     }
 
     @Basic
-    @Column(name = "RECIPE_NO")
+    @Column(name = "RECIPE_NO", nullable = true, length = 14)
     public String getRecipeNo() {
         return recipeNo;
     }
@@ -39,7 +50,7 @@ public class RemDrugEntity {
     }
 
     @Basic
-    @Column(name = "PATIENT_NAME")
+    @Column(name = "PATIENT_NAME", nullable = true, length = 40)
     public String getPatientName() {
         return patientName;
     }
@@ -49,7 +60,7 @@ public class RemDrugEntity {
     }
 
     @Basic
-    @Column(name = "WTABLE_NO")
+    @Column(name = "WTABLE_NO", nullable = true, length = 12)
     public String getWtableNo() {
         return wtableNo;
     }
@@ -59,7 +70,7 @@ public class RemDrugEntity {
     }
 
     @Basic
-    @Column(name = "REM_REMARKS")
+    @Column(name = "REM_REMARKS", nullable = true, length = 100)
     public String getRemRemarks() {
         return remRemarks;
     }
@@ -69,7 +80,7 @@ public class RemDrugEntity {
     }
 
     @Basic
-    @Column(name = "REM_STATUS")
+    @Column(name = "REM_STATUS", nullable = true)
     public Integer getRemStatus() {
         return remStatus;
     }
@@ -79,7 +90,7 @@ public class RemDrugEntity {
     }
 
     @Basic
-    @Column(name = "REM_DATE")
+    @Column(name = "REM_DATE", nullable = true)
     public Timestamp getRemDate() {
         return remDate;
     }
@@ -89,7 +100,7 @@ public class RemDrugEntity {
     }
 
     @Basic
-    @Column(name = "DRUGED_DATE")
+    @Column(name = "DRUGED_DATE", nullable = true)
     public Timestamp getDrugedDate() {
         return drugedDate;
     }
